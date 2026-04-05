@@ -1,56 +1,109 @@
-# Portfolio
+# 송우민 | Cloud Infrastructure Engineer
 
-대학에서의 배움의 과정에서 Java를 중심으로 한 프로젝트를 수행하며  
-웹, 앱, 백엔드 전반의 개발 경험을 쌓았습니다.
----
+> NCP 실무 배포부터 AWS 기반 고가용성 아키텍처까지,  
+> 경험으로 쌓은 클라우드 인프라 시스템 엔지니어입니다.
 
-## Skills
-
-- Language: Java
-- Web: JSP
-- Backend: Spring
-- Mobile / Service: Firebase
-- Cloud: Naver Cloud Platform
-- Database: MySQL
-- Tools: Git, GitHub, DBeaver
+📧 이메일 기재 | 📍 서울 | 🔗 [GitHub](https://github.com/woomin2021)
 
 ---
 
-## Projects
+## 🏅 Certifications
 
-### 1. Capstone Project -- JJB
-- 대학생•직장인들이 기숙사 수용 한계, 출장 숙소 부재, 높은 보증금과 수수료 등의 문제로 인해 장소 부족과 금전적 부담으로 1년 미만의 중·단기 거주에 어려움을 겪고 있기 때문에 
-이러한 배경 속에서 JJB는 단기 거주 공간이 필요한 사람들에게 신속하고 신뢰도 높은 매칭 경험을 제공하는 중개 플랫폼을 목표로 하여 제작 했습니다 
-- 배운 내용을 바탕으로 실제 동작하는 결과물 구현
-- 결과물로 졸업 작품회과 캡스톤 경진 대회 출품 
-
-🔗 Repository: https://github.com/woomin2021/capstone-project / https://github.com/woomin2021/jjb-spring-backend
-
----
-
-### 2. App Programming Project 
-- Android 앱 프로그래밍 수업 프로젝트
-- 수강 신청과 각종 티켓팅을 연습할 수 있는 어플을 제작 했습니다 
-
-🔗 Repository: https://github.com/woomin2021/course-registration-android / https://github.com/woomin2021/course-registration-backend-jsp
+| 자격증 | 취득연도 |
+|--------|----------|
+| RHCSA (Red Hat Certified System Administrator) | 2024 |
+| AWS Solutions Architect Associate (SAA) | 2024 |
+| SQLD | 2024 |
+| 정보처리산업기사 | 2025 |
+| 리눅스마스터 2급 | 2025 |
 
 ---
 
-### 3. Java Project 
-- Java 기초 및 객체지향 개념을 적용한 프로젝트
+## 🛠 Skills
+
+| 분류 | 기술 |
+|------|------|
+| **Cloud** | AWS (VPC, EC2, ALB, ASG, Lambda, S3, SQS, ECR, CloudWatch, X-Ray), NCP |
+| **IaC** | Terraform, Ansible |
+| **CI/CD** | GitHub Actions |
+| **Container** | Docker |
+| **OS** | Linux (RHCSA) |
+| **Backend** | Java, Spring Boot, Python (FastAPI) |
+| **Database** | MySQL, DynamoDB |
+| **Monitoring / Test** | CloudWatch, X-Ray, k6, Slack 알람 |
+| **Tools** | Git, GitHub |
+
+---
+
+## 💼 Projects
+
+### 1. 고가용성 서버리스 이미지 프로세싱 파이프라인
+
+> AWS 기반 이벤트 드리븐 아키텍처 | 2026.03 ~ 2026.04 | 4인 팀
+
+**담당 역할:** CI/CD 파이프라인 구축·자동화, CloudWatch 모니터링 및 성능 분석
+
+**주요 구현 내용:**
+- Terraform으로 전체 인프라 코드화 (모듈 분리: network / compute / storage / messaging / lambda)
+- NAT Gateway 없이 VPC Endpoint 8개로 폐쇄망 구성 (보안 강화)
+- S3 → SQS → Lambda 이벤트 기반 비동기 이미지 리사이징 파이프라인 구축
+- DLQ(Dead Letter Queue)로 3회 실패 메시지 격리 — 데이터 무결성 확보
+- GitHub Actions CI/CD — terraform fmt/validate/plan 자동 검증 → apply 자동 배포
+- Multi-AZ ALB + Auto Scaling 이중 정책 (ALB 요청 수 기반 + CPU 기반)
+- CloudWatch 대시보드 + X-Ray 서비스 맵 + Slack 알람 연동 모니터링 체계 구축
+- k6 부하 테스트로 성능 한계 측정 및 인프라 보강 검증
+
+🔗 Repository: [aws-cloud-pipeline-project](https://github.com/woomin2021/aws-cloud-pipeline-project)
+
+---
+
+### 2. JJB — 집 잠시 빌려드립니다 
+
+> 대학생·직장인 대상 중단기 임시 주거 플랫폼 | 2023.09 ~ 2024.02 | 4인 팀 (기여도 65%)
+
+**담당 역할:** NCP 인프라 설계·배포, Spring Boot 백엔드 개발, 예약·결제 API 구현, DB 설계
+
+**주요 구현 내용:**
+- NCP 서버-DB 서브넷 분리 배치, ACG 최소 권한 원칙 적용
+- Firebase Auth + Spring Boot JWT 검증 연동
+- 중복 예약 방지 로직 + 트랜잭션 처리로 데이터 정합성 확보
+- 위치·날짜 컬럼 인덱스 적용으로 매물 탐색 성능 개선
+- 8개 이상 테이블 정규화 설계
+- 발표 전날 이중 장애(ACG 누락 + WAS 타이밍 오류)를 계층별 원인 추적으로 해결
+
+🔗 Repository: [capstone-project](https://github.com/woomin2021/capstone-project) / [jjb-spring-backend](https://github.com/woomin2021/jjb-spring-backend)
+
+---
+
+### 3. Vibe Pro — 실시간 미국 증시 AI 요약 웹 애플리케이션
+
+> AI 바이브코딩 활용 풀스택 프로젝트
+
+- 실시간 미국 증시 지수와 주요 뉴스를 수집
+- Google Gemini AI를 활용해 밤사이 핵심 이슈를 한눈에 요약
+
+🔗 Repository: [vibe_pro](https://github.com/woomin2021/vibe_pro)
+
+---
+
+### 4. 수강신청·티켓팅 시뮬레이션 앱
+
+> Android 앱 프로그래밍 프로젝트
+
+- 대규모 트랜잭션 처리와 서버 로직 구현 경험
+- Android + Spring Boot 백엔드 연동
+
+🔗 Repository: [course-registration-android](https://github.com/woomin2021/course-registration-android) / [course-registration-backend-jsp](https://github.com/woomin2021/course-registration-backend-jsp)
+
+---
+
+### 5. Java Swing 가계부
+
+> Java 기초·객체지향 개념 적용 프로젝트
+
 - 클래스 구조와 기본 로직 구현
-- Java로만 가계부를 제작하여 구현 
+- Java Swing 기반 데스크탑 애플리케이션
 
-🔗 Repository: https://github.com/woomin2021/java-swing-accountbook
+🔗 Repository: [java-swing-accountbook](https://github.com/woomin2021/java-swing-accountbook)
 
 ---
-### 4. Vibe_Coding 
-- Vibe Pro는 실시간 미국 증시 지수와 주요 뉴스를 수집한다
-- Google Gemini AI를 활용해 밤사이의 핵심 이슈를 한눈에 요약해 주는 풀스택 웹 애플리케이션
-
-🔗 Repository: https://github.com/woomin2021/vibe_pro
-
-## About Me
-
-- 전공 수업을 통해 단계적으로 프로젝트 경험을 쌓음
-- 기초부터 구조를 이해하며 개발하는 것을 목표로 학습 중
