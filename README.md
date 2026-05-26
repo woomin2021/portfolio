@@ -1,4 +1,4 @@
-# 송우민 | Cloud Infrastructure Engineer
+# 송우민 | 
 
 > NCP 실무 배포부터 AWS 기반 고가용성 아키텍처까지,  
 > 경험으로 쌓은 클라우드 인프라 시스템 엔지니어입니다.
