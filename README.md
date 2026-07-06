@@ -37,24 +37,22 @@
 
 ## 💼 Projects
 
-### 1. 살리장 — 지역 소상공인 마감 할인 상품 연결 플랫폼
+### 1. 살리장 — 지역 소상공인 마감 할인 플랫폼
 
-> EKS 기반 클라우드 네이티브 플랫폼 | 2026.04 ~ 2026.05 | 4인 팀
+> AWS EKS 기반 커머스 플랫폼 | 2026.04 ~ 2026.05 | 6인 팀
 
-**담당 역할:** Terraform 기반 전체 인프라 설계·구축, CI/CD 파이프라인, 프론트엔드 개발
+담당 역할: 인프라 2인 중 Terraform 기반 AWS 인프라 구축, EKS 운영, ArgoCD 배포 환경 구성 담당
 
-**주요 구현 내용:**
+주요 구현 및 결과
 
-- Terraform으로 전체 인프라 모듈화 코드화 (network / compute / data / security / messaging 등)
-- Private EKS 클러스터 구축 + Karpenter 동적 노드 프로비저닝
-- Route53 + CloudFront + WAF + ACM Edge 보안 레이어 구축
-- ALB + Ingress Controller 연동, VPC 서브넷 CIDR 설계 (Multi-AZ)
-- RDS PostgreSQL + RDS Proxy + ElastiCache Redis 데이터 계층 분리
-- VPC Endpoints(PrivateLink)로 AWS 내부망 통신 구성
-- IRSA(IAM Roles for Service Accounts)로 Pod별 최소 권한 보안 설계
-- SQS & SNS 비동기 처리 레이어 설계
-- GitHub Actions CI (SonarQube 코드 품질 + Trivy 이미지 취약점 스캔) + ArgoCD GitOps CD
-- React 기반 프론트엔드 개발
+- Terraform으로 VPC, EKS, RDS, ElastiCache, CloudFront, WAF 등 인프라 모듈화
+- GitHub Actions에서 코드·이미지 검증 후 ArgoCD가 Kubernetes 배포를 수행하도록 CI/CD 역할 분리
+- Karpenter 기반 워커 노드 동적 프로비저닝 구성
+- ALB Ingress Controller와 EKS 서비스 연동
+- IAM Role, IRSA, Security Group, WAF 기반 접근 권한과 외부 요청 보호 구성
+- kubelet 10250 포트와 Security Group 규칙을 분석해 kubectl logs/exec 타임아웃 복구
+- Terraform for_each의 Plan 단계 미확정 값 오류를 고정 key 구조로 변경해 서브넷 태깅 자동화
+- 해결한 장애 원인과 점검 항목을 문서화해 동일 유형 문제의 확인 기준 마련
 
 🔗 Team Repository: [github.com/Salijang](https://github.com/Salijang)
 
@@ -62,39 +60,40 @@
 
 ### 2. 고가용성 서버리스 이미지 프로세싱 파이프라인
 
-> AWS 기반 이벤트 드리븐 아키텍처 | 2026.03 ~ 2026.04 | 4인 팀
+> AWS 이벤트 기반 이미지 처리 시스템 | 2026.03 ~ 2026.04 | 4인 팀
 
-**담당 역할:** CI/CD 파이프라인 구축·자동화, CloudWatch 모니터링 및 성능 분석
+담당 역할: 인프라·CI/CD 담당, Terraform 구성, 폐쇄망 네트워크, 모니터링과 부하 테스트 설계
 
-**주요 구현 내용:**
+주요 구현 및 결과
 
-- Terraform으로 전체 인프라 코드화 (모듈 분리: network / compute / storage / messaging / lambda)
-- NAT Gateway 없이 VPC Endpoint 8개로 폐쇄망 구성 (보안 강화)
-- S3 → SQS → Lambda 이벤트 기반 비동기 이미지 리사이징 파이프라인 구축
-- DLQ(Dead Letter Queue)로 3회 실패 메시지 격리 — 데이터 무결성 확보
-- GitHub Actions CI/CD — terraform fmt/validate/plan 자동 검증 → apply 자동 배포
-- Multi-AZ ALB + Auto Scaling 이중 정책 (ALB 요청 수 기반 + CPU 기반)
-- CloudWatch 대시보드 + X-Ray 서비스 맵 + Slack 알람 연동 모니터링 체계 구축
-- k6 부하 테스트로 성능 한계 측정 및 인프라 보강 검증
+- Terraform으로 VPC, EC2, ALB, ASG, S3, SQS, Lambda 인프라 모듈화
+- Interface/Gateway VPC Endpoint를 이용한 Private Subnet 폐쇄망 구성
+- S3 → SQS → Lambda 비동기 이미지 리사이징 파이프라인 구축
+- ALB 요청 수와 CPU 사용률 기반의 이중 Auto Scaling 정책 구성
+- CloudWatch, X-Ray, Slack 알림을 활용한 상태 확인과 장애 탐지 환경 구성
+- SSM과 cloud-init 로그로 컨테이너 기동 실패 원인을 분석하고 서비스 복구
+- 실제 S3 이벤트와 테스트 이벤트를 분리해 Lambda KeyError와 DLQ 오탐 제거
+- k6 에러 주입 수와 DLQ 메시지 수가 156/156, 148/148, 456/456으로 일치하는지 검증
 
 🔗 Repository: [aws-cloud-pipeline-project](https://github.com/woomin2021/aws-cloud-pipeline-project)
 
 ---
 
-### 3. JJB — 집 잠시 빌려드립니다 
+### 3. JJB — 집 잠시 빌려드립니다
 
-> 대학생·직장인 대상 중단기 임시 주거 플랫폼 | 2023.09 ~ 2024.02 | 4인 팀 (기여도 65%)
+> 중단기 임시 주거 매칭 플랫폼 | 2025.09 ~ 2025.12 | 4인 팀  
 
-**담당 역할:** NCP 인프라 설계·배포, Spring Boot 백엔드 개발, 예약·결제 API 구현, DB 설계
+담당 역할: NCP 인프라 설계·배포, Spring Boot 백엔드, 예약·결제 API와 DB 설계
 
-**주요 구현 내용:**
+주요 구현 및 결과
 
-- NCP 서버-DB 서브넷 분리 배치, ACG 최소 권한 원칙 적용
-- Firebase Auth + Spring Boot JWT 검증 연동
-- 중복 예약 방지 로직 + 트랜잭션 처리로 데이터 정합성 확보
-- 위치·날짜 컬럼 인덱스 적용으로 매물 탐색 성능 개선
-- 8개 이상 테이블 정규화 설계
-- 발표 전날 이중 장애(ACG 누락 + WAS 타이밍 오류)를 계층별 원인 추적으로 해결
+- NCP Server, Subnet, ACG 기반 서버·DB 네트워크 분리
+- DB ACG의 3306 포트 누락으로 발생한 통신 장애를 telnet으로 확인해 복구
+- Shell 배포 스크립트에서 파일 복사 전 WAS가 재시작되는 순서 오류를 찾아 배포 순서 재설계
+- curl로 실제 서버 응답을 확인해 구버전 응답 문제 해결
+- Firebase Auth와 Spring Boot JWT 인증 연동
+- 예약 중복 방지와 트랜잭션 처리로 데이터 정합성 관리
+- 해결 과정과 재발 방지 절차를 팀 문서로 작성
 
 🔗 Repository: [capstone-project](https://github.com/woomin2021/capstone-project) / [jjb-spring-backend](https://github.com/woomin2021/jjb-spring-backend)
 
